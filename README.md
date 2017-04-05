@@ -14,7 +14,7 @@ This is a starting point to demonstrate the method of authentication by verifyin
 2. Install dependencies: `npm install`
 3. Change SECRET in `config.js`
 4. Add your own MongoDB database to `config.js`
-5. Start the server: `node server.js`
+5. Start the server: `node cluster.js`
 6. Create sample user by visiting: `http://localhost:8080/signup`
 
 Once everything is set up, we can begin to use our app by creating and verifying tokens.
