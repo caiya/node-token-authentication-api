@@ -6,7 +6,7 @@ var User = require('../app/models/user'); // get our mongoose model
 var config = require('../config'); // get our config file
 
 //获取token
-apiRoutes.post("/authorize", function(req, res, next) {
+apiRoutes.post("/", function(req, res, next) {
     // find the user
     User.findOne({
         name: req.body.name

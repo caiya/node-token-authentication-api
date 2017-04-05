@@ -13,9 +13,8 @@ var helmet = require('helmet'); //安全插件
 var config = require('./config'); // get our config file
 var User = require('./app/models/user'); // get our mongoose model
 var Routes = require('./routes'); // get our mongoose model
-var Authorize = require('./routes/authorize'); // get token model
 var CheckToken = require('./routes/checktoken'); // check token model
-var Signup = require('./routes/signup'); // signup model
+
 
 // =================================================================
 // configuration ===================================================
@@ -41,11 +40,7 @@ app.use(cors({
 
 app.use(compression());
 
-//注册
-app.use("/signup", Signup);
-//获取token
-app.use('/authorize', Authorize);
-//受token保护的路由
+//以api开头的路由添加token校验
 app.use("/api", CheckToken);
 Routes(app);
 
