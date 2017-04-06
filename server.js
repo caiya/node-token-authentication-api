@@ -10,6 +10,8 @@ var cors = require('cors'); //cors支持
 var compression = require('compression'); //压缩
 var helmet = require('helmet'); //安全插件
 
+var domain = require("domain");
+
 var config = require('./config'); // get our config file
 var User = require('./app/models/user'); // get our mongoose model
 var Routes = require('./routes'); // get our mongoose model
@@ -40,9 +42,20 @@ app.use(cors({
 
 app.use(compression());
 
+app.use(require('express-domain-middleware'));
+
 //以api开头的路由添加token校验
 app.use("/api", CheckToken);
 Routes(app);
+
+app.use(function errorHandler(err, req, res, next) {
+    console.log('error on request %d %s %s: %j', process.domain.id, req.method, req.url, err);
+    res.send(500, "Something bad happened. :(");
+    if (err.domain) {
+        //you should think about gracefully stopping & respawning your server 
+        //since an unhandled error might put your application into an unknown state 
+    }
+});
 
 // =================================================================
 // start the server ================================================
